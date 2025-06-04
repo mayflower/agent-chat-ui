@@ -160,6 +160,33 @@ export function AssistantMessage({
               </div>
             )}
 
+            {/* Sources Section */}
+            {message && "additional_kwargs" in message && message.additional_kwargs?.sources && Array.isArray(message.additional_kwargs.sources) && message.additional_kwargs.sources.length > 0 && (
+              <div className="mt-4 border-t border-border pt-3">
+                <h4 className="text-sm font-semibold mb-2 text-foreground">Sources:</h4>
+                <ul className="space-y-1">
+                  {message.additional_kwargs.sources.map((source: any, index: number) => (
+                    <li key={source.id || index} className="text-sm">
+                      {source.source_url ? (
+                        <a
+                          href={source.source_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:text-primary/80 underline underline-offset-4 font-medium"
+                        >
+                          {source.title}
+                        </a>
+                      ) : (
+                        <span className="font-medium text-foreground">
+                          {source.title}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {!hideToolCalls && (
               <>
                 {(hasToolCalls && toolCallsHaveContents && (
